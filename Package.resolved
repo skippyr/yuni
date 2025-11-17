@@ -1,0 +1,15 @@
+{
+  "originHash" : "004f98244329757096a8240faece6ff46ccb929ad129f33b6db14ce762de96a6",
+  "pins" : [
+    {
+      "identity" : "teco",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/skippyr/Teco",
+      "state" : {
+        "revision" : "2a9d23ee35183887f12ce93492d40e8de4d58b4c",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
