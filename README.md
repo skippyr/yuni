@@ -9,7 +9,7 @@ A modern version of the macOS default ZSH theme, adding essential developer feat
 ### Using OhMyZSH Framework
 - Download the latest release from the [Releases page](http://github.com/skippyr/yuni/releases/latest).
 - Extract the archive.
-- Move the extracted directory to `~/.oh-my-zsh/custom/themes`.
+- Move the extracted directory to `~/.oh-my-zsh/custom/themes`, renaming it as just `yuni`.
 - Set it as your theme in your `~/.zshrc` file:
 
 ```zsh
@@ -21,7 +21,7 @@ ZSH_THEME='yuni'
 ### Without Using a Framework
 - Download the latest release from the [Releases page](http://github.com/skippyr/yuni/releases/latest).
 - Extract the archive.
-- Move the extracted directory to `~/.config/zsh/themes`.
+- Move the extracted directory to `~/.config/zsh/themes`, renaming it as just `yuni`.
 - Add this to your `~/.zshrc` file:
 
 ```zsh
