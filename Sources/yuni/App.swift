@@ -9,17 +9,17 @@ import Foundation
 import Teco
 
 @main enum App {
-  private static let version = "1.0 (2)"
+  private static let version = "1.0 (3)"
   @MainActor private static let titleStyle = Terminal.Style(foreground: .magenta, weight: .bold)
   @MainActor private static let optionStyle = Terminal.Style(foreground: .red)
   @MainActor private static let pathStyle = Terminal.Style(foreground: .green)
   @MainActor private static let urlStyle = Terminal.Style(foreground: .blue, effects: [.underline])
 
-  static func environmentVariable(_ name: String) -> String? {
+  private static func environmentVariable(_ name: String) -> String? {
     if let value = getenv(name) { String(cString: value) } else { nil }
   }
 
-  @MainActor static func throwError(_ message: Terminal.StyledString) -> Never {
+  @MainActor private static func throwError(_ message: Terminal.StyledString) -> Never {
     Terminal.print(
       """
       \("yuni:".style(titleStyle)) \(message)
@@ -28,7 +28,7 @@ import Teco
     exit(EXIT_FAILURE)
   }
 
-  @MainActor static func printHelp() {
+  @MainActor private static func printHelp() {
     Terminal.print(
       """
       \("Usage:".style(titleStyle)) yuni [\("OPTION".style(optionStyle).underline)]...
@@ -44,7 +44,7 @@ import Teco
       """)
   }
 
-  @MainActor static func printVersion() {
+  @MainActor private static func printVersion() {
     Terminal.print(
       """
       \("yuni".style(titleStyle)) \(version.description.green) \("(xyz.dragonscave.yuni)".gray)
@@ -57,7 +57,7 @@ import Teco
       """)
   }
 
-  @MainActor static func printIDSSection() {
+  @MainActor private static func printIDSSection() {
     ZSH.withBold {
       ZSH.withColor(.green) { Terminal.print(ZSH.user, terminator: "") }
       ZSH.withColor(.red) { Terminal.print("@", terminator: "") }
@@ -65,14 +65,14 @@ import Teco
     }
   }
 
-  @MainActor static func printVirtualEnvSection() {
+  @MainActor private static func printVirtualEnvSection() {
     if let virtualEnv = environmentVariable("VIRTUAL_ENV") {
       Terminal.print(" (\(FileSystem.fileName(of: virtualEnv)))", terminator: "")
     }
     Terminal.print("  ", terminator: "")
   }
 
-  @MainActor static func printPathSection(repository: Git.Repository?) {
+  @MainActor private static func printPathSection(repository: Git.Repository?) {
     ZSH.withColor(.red) {
       var path: String = FileSystem.currentLogicalPath
       let isAbbreviatingRepository = if let path = repository?.path { path != "/" } else { false }
@@ -106,19 +106,19 @@ import Teco
     }
   }
 
-  @MainActor static func printGitSection(repository: Git.Repository?) {
+  @MainActor private static func printGitSection(repository: Git.Repository?) {
     guard let repository = repository else { return }
     ZSH.withColor(.blue) { Terminal.print(" git:(", terminator: "") }
     switch repository.reference {
     case .branch(let branch): ZSH.withColor(.yellow) { Terminal.print(branch, terminator: "") }
     case .rebaseHash(let rebaseHash):
-      ZSH.withColor(.magenta) { Terminal.print("rebase:") }
+      ZSH.withUnderline { ZSH.withColor(.magenta) { Terminal.print("rebase:", terminator: "") } }
       ZSH.withColor(.yellow) { Terminal.print(rebaseHash, terminator: "") }
     }
     ZSH.withColor(.blue) { Terminal.print(")", terminator: "") }
   }
 
-  @MainActor static func printPrivilegeSection() {
+  @MainActor private static func printPrivilegeSection() {
     Terminal.print(" \(ZSH.privilegeCharacter)", terminator: "")
     if !FileSystem.canModifyCurrentDirectory {
       Terminal.print("[", terminator: "")
@@ -127,7 +127,7 @@ import Teco
     }
   }
 
-  @MainActor static func printExitCodeSection() {
+  @MainActor private static func printExitCodeSection() {
     ZSH.wrapExitCodes(onFailure: {
       Terminal.print("[", terminator: "")
       ZSH.withColor(.red) { Terminal.print(ZSH.exitCode, terminator: "") }
@@ -135,9 +135,9 @@ import Teco
     })
   }
 
-  @MainActor static func printPrompt() {
+  @MainActor private static func printPrompt() {
     let repository = Git.Repository.active
-    ZSH.withBold { ZSH.withColor(.red) { Terminal.print("⤐  ", terminator: "") } }
+    ZSH.withColor(.red) { Terminal.print("⤐  ", terminator: "") }
     printExitCodeSection()
     printIDSSection()
     printVirtualEnvSection()
@@ -147,7 +147,7 @@ import Teco
     Terminal.print(" ")
   }
 
-  static func main() {
+  private static func main() {
     for argument in CommandLine.arguments.dropFirst().map({ $0.trimmingCharacters(in: .newlines) })
     {
       switch argument {

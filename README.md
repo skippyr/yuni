@@ -1,6 +1,6 @@
 # yuni
 ## About
-A modern version of the macOS default ZSH theme, adding features developers have been missing for a long time. It's available for macOS 14 Sonoma or later.
+A new default theme for macOS ZSH, adding features developers have been missing for a long time. It's available for macOS 14 Sonoma or later.
 
 ![](Assets/PreviewDark.png)
 ![](Assets/PreviewLight.png)
@@ -22,7 +22,7 @@ Disable the colors of the prompt by setting the environment variable `NO_COLOR` 
 ### Using OhMyZSH Framework
 - Download the latest release from the [Releases page](http://github.com/skippyr/yuni/releases/latest).
 - Extract the archive.
-- Move the extracted directory to `~/.oh-my-zsh/custom/themes`, renaming it to just `yuni`.
+- Move the extracted directory to `~/.oh-my-zsh/custom/themes`.
 - Set it as your theme in your `~/.zshrc` file:
 
 ```zsh
@@ -34,7 +34,7 @@ ZSH_THEME='yuni/yuni'
 ### Without Using a Framework
 - Download the latest release from the [Releases page](http://github.com/skippyr/yuni/releases/latest).
 - Extract the archive.
-- Move the extracted directory to `~/.config/zsh/themes`, renaming it to just `yuni`.
+- Move the extracted directory to `~/.config/zsh/themes`.
 - Add this to your `~/.zshrc` file:
 
 ```zsh

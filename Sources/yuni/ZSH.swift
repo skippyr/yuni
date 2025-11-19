@@ -27,6 +27,13 @@ enum ZSH {
     return result
   }
 
+  @MainActor static func withUnderline<T>(action: () throws -> T) rethrows -> T {
+    if Terminal.shouldApplyStyles { Terminal.print("%U", terminator: "") }
+    let result = try action()
+    if Terminal.shouldApplyStyles { Terminal.print("%u", terminator: "") }
+    return result
+  }
+
   @MainActor static func wrapExitCodes(
     onSuccess: (() -> Void)? = nil, onFailure: (() -> Void)? = nil
   ) {
