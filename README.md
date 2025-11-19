@@ -1,12 +1,22 @@
 # yuni
 ## About
-A modern version of the macOS default ZSH theme, adding essential developer features the original theme lacked. Its displays: the exit code of failed commands, sourced Python environment, your user and host names, the current directory path shortened, the active branch, and privilege decorators: `%` if you're a normal user, `#` if root, and `[!]` when you don't have permissions to modify the current directory. It's available for macOS 14 Sonoma or later.
-
-Disable the colors of the prompt by setting the environment variable `NO_COLOR` to a non-empty string value.
+A modern version of the macOS default ZSH theme, adding features developers have been missing for a long time. It's available for macOS 14 Sonoma or later.
 
 ![](Assets/PreviewDark.png)
 ![](Assets/PreviewLight.png)
 ![](Assets/PreviewNoColor.png)
+
+It shows:
+- The exit code of failed commands.
+- The active Python virtual environment.
+- Your user and host names.
+- The current directory path, abbreviating parent directories and shorting it inside of repositories.
+- The active Git branch or rebase hash.
+- Privilege decorators:
+  - `%` if you're a normal user or `#`, if root.
+  - `[!]` when you don't have permissions to write to the current directory.
+
+Disable the colors of the prompt by setting the environment variable `NO_COLOR` to a non-empty string value.
 
 ## Install
 ### Using OhMyZSH Framework
