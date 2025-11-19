@@ -13,7 +13,8 @@ enum ZSH {
     static let host = "%m"
     static let privilegeCharacter = "%#"
 
-    @MainActor static func withColor<T>(_ color: Color, action: () throws -> T) rethrows -> T {
+    @MainActor
+    static func withColor<T>(_ color: Color, action: () throws -> T) rethrows -> T {
         if Terminal.shouldApplyColors {
             Terminal.print("%F{\(color.rawValue)}", terminator: "")
         }
@@ -24,7 +25,8 @@ enum ZSH {
         return result
     }
 
-    @MainActor static func withBold<T>(action: () throws -> T) rethrows -> T {
+    @MainActor
+    static func withBold<T>(action: () throws -> T) rethrows -> T {
         if Terminal.shouldApplyStyles {
             Terminal.print("%B", terminator: "")
         }
@@ -35,7 +37,8 @@ enum ZSH {
         return result
     }
 
-    @MainActor static func withUnderline<T>(action: () throws -> T) rethrows -> T {
+    @MainActor
+    static func withUnderline<T>(action: () throws -> T) rethrows -> T {
         if Terminal.shouldApplyStyles {
             Terminal.print("%U", terminator: "")
         }
@@ -46,9 +49,8 @@ enum ZSH {
         return result
     }
 
-    @MainActor static func wrapExitCodes(
-        onSuccess: (() -> Void)? = nil, onFailure: (() -> Void)? = nil
-    ) {
+    @MainActor
+    static func wrapExitCodes(onSuccess: (() -> Void)? = nil, onFailure: (() -> Void)? = nil) {
         Terminal.print("%(?.", terminator: "")
         if let onSuccess {
             onSuccess()
