@@ -1,8 +1,13 @@
 //
 //  Git.swift
-//  yuni
+//  Part of the yuni project.
 //
-//  Created by Sherman Barros on 11/11/25.
+//  Created by Sherman Barros <skippyr.developer@icloud.com>
+//  Visit my website: https://dragonscave.xyz.
+//  Follow me on GitHub: https://github.com/skippyr.
+//
+//  Refer to the LICENSE file that comes in its source code for more details.
+//  If not available, all rights are reserved to the author.
 //
 
 import Foundation
@@ -17,9 +22,7 @@ enum Git {
             self.reference = reference
         }
 
-        private static func unsafeParseHead(at path: UnsafeMutableBufferPointer<CChar>, sentinelOffset: Int)
-            -> Repository?
-        {
+        private static func unsafeParseHead(at path: UnsafeMutableBufferPointer<CChar>, sentinelOffset: Int) -> Repository? {
             guard let file = fopen(path.baseAddress!, "r") else {
                 return nil
             }
@@ -50,9 +53,7 @@ enum Git {
                 if matchesRebaseHash {
                     path[sentinelOffset] = 0
                     buffer[7] = 0
-                    return Repository(
-                        path: String(cString: path.baseAddress!),
-                        reference: .rebaseHash(String(cString: buffer.baseAddress!)))
+                    return Repository(path: String(cString: path.baseAddress!), reference: .rebaseHash(String(cString: buffer.baseAddress!)))
                 }
                 for branchMatchingByte in "fs/heads/".utf8 {
                     let readByte = fgetc(file)
@@ -78,15 +79,13 @@ enum Git {
                 }
                 path[sentinelOffset] = 0
                 buffer[offset] = 0
-                return Repository(
-                    path: String(cString: path.baseAddress!), reference: .branch(String(cString: buffer.baseAddress!)))
+                return Repository(path: String(cString: path.baseAddress!), reference: .branch(String(cString: buffer.baseAddress!)))
             }
         }
 
         static var active: Repository? {
             let currentDirectoryPathUTF8 = FileSystem.currentLogicalPath.utf8
-            return withUnsafeTemporaryAllocation(of: CChar.self, capacity: currentDirectoryPathUTF8.count + 11) {
-                repositoryPath in
+            return withUnsafeTemporaryAllocation(of: CChar.self, capacity: currentDirectoryPathUTF8.count + 11) { repositoryPath in
                 for (offset, byte) in currentDirectoryPathUTF8.enumerated() {
                     (repositoryPath.baseAddress! + offset).pointee = CChar(bitPattern: byte)
                 }

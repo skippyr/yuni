@@ -1,20 +1,24 @@
 //
-//  main.swift
-//  yuni
+//  App.swift
+//  Part of the yuni project.
 //
-//  Created by Sherman Barros on 11/10/25.
+//  Created by Sherman Barros <skippyr.developer@icloud.com>
+//  Visit my website: https://dragonscave.xyz.
+//  Follow me on GitHub: https://github.com/skippyr.
+//
+//  Refer to the LICENSE file that comes in its source code for more details.
+//  If not available, all rights are reserved to the author.
 //
 
-import Foundation
 import Teco
 
 @main
 enum App {
     private static let version = "1.0 (3)"
-    @MainActor private static let titleStyle = Terminal.Style(foreground: .magenta, weight: .bold)
-    @MainActor private static let optionStyle = Terminal.Style(foreground: .red)
-    @MainActor private static let pathStyle = Terminal.Style(foreground: .green)
-    @MainActor private static let urlStyle = Terminal.Style(foreground: .blue, effects: [.underline])
+    @MainActor private static let titleStyle = TextStyle(foreground: .magenta, weight: .bold)
+    @MainActor private static let optionStyle = TextStyle(foreground: .red)
+    @MainActor private static let pathStyle = TextStyle(foreground: .green)
+    @MainActor private static let urlStyle = TextStyle(foreground: .blue, effects: [.underline])
 
     private static func environmentVariable(_ name: String) -> String? {
         if let value = getenv(name) {
@@ -25,12 +29,14 @@ enum App {
     }
 
     @MainActor
-    private static func throwError(_ message: Terminal.StyledString) -> Never {
+    private static func throwError(_ message: StyledText) -> Never {
         Terminal.print(
             """
             \("yuni:".style(titleStyle)) \(message)
             Use \("-h".style(optionStyle)) or \("--help".style(optionStyle)) for help instructions.
-            """, via: .error)
+            """,
+            via: .error
+        )
         exit(EXIT_FAILURE)
     }
 
@@ -48,21 +54,23 @@ enum App {
             \("AVAILABLE OPTIONS".style(titleStyle))
                 \("-h".style(optionStyle)), \("--help".style(optionStyle))     shows the software help instructions.
                 \("-v".style(optionStyle)), \("--version".style(optionStyle))  shows the software version.
-            """)
+            """
+        )
     }
 
     @MainActor
     private static func printVersion() {
         Terminal.print(
             """
-            \("yuni".style(titleStyle)) \(version.description.green) \("(xyz.dragonscave.yuni)".gray)
+            \("yuni".style(titleStyle)) \(version.green) \("(xyz.dragonscave.yuni)".gray)
             Available at: \("https://github.com/skippyr/yuni".style(urlStyle)).
 
             MIT License
             Copyright (c) 2025 Sherman Barros <\("skippyr.developer@icloud.com".style(urlStyle))>
 
             Refer to the \("LICENSE".style(pathStyle)) file that comes in its source code for more details.
-            """)
+            """
+        )
     }
 
     @MainActor
@@ -94,9 +102,7 @@ enum App {
                 }
             var isReplacingRange = false
             if isAbbreviatingRepository {
-                path.replaceSubrange(
-                    path.range(of: URL(fileURLWithPath: repository!.path).deletingLastPathComponent().path)!,
-                    with: "@")
+                path.replaceSubrange(path.range(of: URL(fileURLWithPath: repository!.path).deletingLastPathComponent().path)!, with: "@")
                 isReplacingRange = true
             } else {
                 if let homeRange = path.range(of: FileManager.default.homeDirectoryForCurrentUser.path) {
@@ -112,10 +118,7 @@ enum App {
                 if offset > 0 {
                     Terminal.print("/", terminator: "")
                 }
-                guard
-                    !((offset == 0 && isReplacingRange) || (isAbbreviatingRepository && offset == 1)
-                        || offset == fragments.count - 1)
-                else {
+                guard !((offset == 0 && isReplacingRange) || (isAbbreviatingRepository && offset == 1) || offset == fragments.count - 1) else {
                     Terminal.print(fragment, terminator: "")
                     continue
                 }

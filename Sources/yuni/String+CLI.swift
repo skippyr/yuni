@@ -1,8 +1,13 @@
 //
 //  String+CLI.swift
-//  yuni
+//  Part of the yuni project.
 //
-//  Created by Sherman Barros on 11/11/25.
+//  Created by Sherman Barros <skippyr.developer@icloud.com>
+//  Visit my website: https://dragonscave.xyz.
+//  Follow me on GitHub: https://github.com/skippyr.
+//
+//  Refer to the LICENSE file that comes in its source code for more details.
+//  If not available, all rights are reserved to the author.
 //
 
 extension String {
