@@ -43,11 +43,11 @@ source ~/.config/zsh/themes/yuni/yuni.zsh-theme
 
 - Reopen the shell.
 
-## Help
-If you need help related to this project, open a new issue in its [issues pages](https://github.com/skippyr/yuni/issues) or send an [e-mail](mailto:skippyr.developer@icloud.com) describing what is going on.
+## Support
+If you need help with this project, you can [open a new issue](https://github.com/skippyr/yuni/issues/new) or [send an email](mailto:skippyr.developer@icloud.com) describing the problem in detail.
 
 ## Contributing
-This project is open to review and possibly accept contributions in the form of bug reports and suggestions. If you are interested, send your contribution to its [pull requests page](https://github.com/skippyr/yuni/pulls) or via [e-mail](mailto:skippyr.developer@icloud.com).
+Feel free to share suggestions or propose solutions that could help improve this project. If something catches your interest, you're welcome to open a new issue or contribute to an existing one via its [issues page](https://github.com/skippyr/yuni/issues).
 
 ## Copyright
-This software is licensed under the MIT License. Refer to the `LICENSE` file that comes in its source code for more details.
+This software is distributed under the MIT License. For complete terms, see the accompanying `LICENSE` file included in the source code. When applicable, a `NOTICE` file may also be provided to acknowledge copyrights or other attributions for third-party components.
